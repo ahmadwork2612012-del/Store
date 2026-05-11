@@ -20,7 +20,7 @@ body{
 }
 
 
-.left, .right{
+#left, #right{
     background: linear-gradient(to right, #f5f0f0, #b6b3b3);
     padding: 20px;
     border-radius: 14px;
@@ -28,11 +28,11 @@ body{
 }
 
 
-.left{
+#left{
     flex: 1;
 }
 
-.right{
+#right{
     flex: 2;
     max-height: 90vh;
     overflow-y: auto;
@@ -162,6 +162,7 @@ button{
     padding: 5px 10px;
     border-radius: 6px;
 }
+
 
 
 @media (max-width: 800px){
