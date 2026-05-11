@@ -12,7 +12,7 @@
 
     <div class="container">
 
-        <div class="left">
+        <div id="left">
             <h1>Product Form</h1>
 
             <div id="error-message" style="display: none;">
@@ -53,13 +53,17 @@
                     <input id="description" type="text" placeholder="ضع وصف المنتج">
 
                     <button type="submit" id="btn">اضافة المنتج</button>
+                    <button onclick="toggleView()">عرض المنتجات</button>
                 </div>
             </form>
         </div>
 
-        <div class="right">
+        <div id="right">
             <h1>Products</h1>
-            <div id="products"></div>
+            <div id="products">
+    <button type="button" onclick="goBack()">رجوع</button>
+    </div>
+            </div>
         </div>
 
     </div>
