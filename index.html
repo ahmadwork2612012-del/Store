@@ -9,42 +9,61 @@
 </head>
 
 <body>
+
     <div class="container">
-        <h1>Product Management System</h1>
-        <div id="error-message" style="display: none;">
-            <h3>ERROR , Enter valid data</h3>
-        </div>
-        <div id="complete-message" style="display: none;">
-            <h3>Product added successfully!</h3>
-        </div>
-        <div id="delete-message" style="display: none;">
-            <h3>Product deleted successfully!</h3>
-        </div>
-        <div id="edit-message" style="display: none;">
-            <h3>Product updated successfully!</h3>
-        </div>
-        <div id="empty-message" style="display: none;">
-            <h3>No products available, Please add some products.</h3>
-        </div>
-        <form id="form">
-            <div class="form-group">
-                <input id="name" type="text" placeholder="ضع اسم المنتج">
-                <input id="price" type="number" placeholder="ضع سعر المنتج ">
-                <select name="select Menu" id="select">
-                    <option class="form-control" value="main">اختر نوع المنتج</option>
-                    <option class="form-control" value="clothes">ملابس</option>
-                    <option class="form-control" value="electronics">الكترونيات</option>
-                    <option class="form-control" value="books">كتب</option>
-                    <option class="form-control" value="food">طعام</option>
-                    <option class="form-control" value="games">العاب</option>
-                </select>
-                <input id="image" type="url" placeholder="ضع رابط صورة المنتج ">
-                <input id="description" type="text" placeholder="ضع وصف المنتج ">
-                <button type="submit" id="btn">اضافة المنتج</button>
+
+        <div class="left">
+            <h1>Product Form</h1>
+
+            <div id="error-message" style="display: none;">
+                <h3>ERROR , Enter valid data</h3>
             </div>
-        </form>
-        <div id="products"></div>
+
+            <div id="complete-message" style="display: none;">
+                <h3>Product added successfully!</h3>
+            </div>
+
+            <div id="delete-message" style="display: none;">
+                <h3>Product deleted successfully!</h3>
+            </div>
+
+            <div id="edit-message" style="display: none;">
+                <h3>Product updated successfully!</h3>
+            </div>
+
+            <div id="empty-message" style="display: none;">
+                <h3>No products available, Please add some products.</h3>
+            </div>
+
+            <form id="form">
+                <div class="form-group">
+                    <input id="name" type="text" placeholder="ضع اسم المنتج">
+                    <input id="price" type="number" placeholder="ضع سعر المنتج">
+
+                    <select id="select">
+                        <option value="main">اختر نوع المنتج</option>
+                        <option value="clothes">ملابس</option>
+                        <option value="electronics">الكترونيات</option>
+                        <option value="books">كتب</option>
+                        <option value="food">طعام</option>
+                        <option value="games">العاب</option>
+                    </select>
+
+                    <input id="image" type="url" placeholder="ضع رابط صورة المنتج">
+                    <input id="description" type="text" placeholder="ضع وصف المنتج">
+
+                    <button type="submit" id="btn">اضافة المنتج</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="right">
+            <h1>Products</h1>
+            <div id="products"></div>
+        </div>
+
     </div>
+
     <script src="app.js"></script>
 </body>
 
