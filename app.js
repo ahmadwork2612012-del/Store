@@ -20,15 +20,20 @@ const products = document.getElementById('products');
 let editIndex = -1;
 
 
-//  API 
+// API 
 async function getAPIProducts() {
-    const res = await fetch("https://fakestoreapi.com/products");
-    const data = await res.json();
-    return data;
+    try {
+        const res = await fetch("https://fakestoreapi.com/products");
+        const data = await res.json();
+        return data;
+    } catch (error) {
+        console.log(error);
+        return [];
+    }
 }
 
 
-//  الرسائل 
+// الرسائل 
 function showMessage(msg) {
     msg.style.display = "block";
 
@@ -38,7 +43,7 @@ function showMessage(msg) {
 }
 
 
-//  submit 
+// submit 
 form.addEventListener("submit", function (e) {
     e.preventDefault();
 
@@ -99,7 +104,7 @@ form.addEventListener("submit", function (e) {
 });
 
 
-//  localStorage 
+// localStorage 
 function displayLocalProducts() {
     let productsList = JSON.parse(localStorage.getItem("products")) || [];
 
@@ -123,7 +128,7 @@ function displayLocalProducts() {
 }
 
 
-//  API 
+// API 
 async function displayAPIProducts() {
     let apiProducts = await getAPIProducts();
 
@@ -147,16 +152,16 @@ async function displayAPIProducts() {
 }
 
 
-//  عرض الكل 
+// عرض الكل 
 async function displayAllProducts() {
-    products.innerHTML = "Loading...";
+    products.innerHTML = "";
 
     await displayAPIProducts();
     displayLocalProducts();
 }
 
 
-//  حذف 
+// حذف 
 function deleteProduct(index) {
     let productsList = JSON.parse(localStorage.getItem("products")) || [];
 
@@ -170,7 +175,7 @@ function deleteProduct(index) {
 }
 
 
-//  تعديل 
+// تعديل 
 function editProduct(index) {
     let productsList = JSON.parse(localStorage.getItem("products")) || [];
 
@@ -190,5 +195,5 @@ function editProduct(index) {
 }
 
 
-//  أول تشغيل 
+// أول تشغيل 
 window.onload = displayAllProducts;
