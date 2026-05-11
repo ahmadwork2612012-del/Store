@@ -168,7 +168,11 @@ button{
     .container{
         flex-direction: column;
     }
-
+    .productE{
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+    }
     .form-group{
         grid-template-columns: 1fr;
     }
