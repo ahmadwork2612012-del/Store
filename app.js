@@ -194,6 +194,19 @@ function editProduct(index) {
     showMessage(editMsg);
 }
 
+function toggleView() {
+    const left = document.getElementById("left");
+    const right = document.getElementById("right");
+
+    if (left.style.display === "none") {
+        left.style.display = "block";
+        right.style.display = "none";
+    } else {
+        left.style.display = "none";
+        right.style.display = "block";
+    }
+}
+
 
 // أول تشغيل 
 window.onload = displayAllProducts;
