@@ -80,6 +80,16 @@ button{
     color: white;
     font-size: 16px;
     cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    transition: background 0.3s ease, box-shadow 0.3s ease
+}
+button:hover{
+    background: linear-gradient(to right, #45a049, #4CAF50);
+    transform: translateY(-2px);
+}
+button:active{
+    background: linear-gradient(to right, #3e8e41, #4CAF50);
+    box-shadow: 0 3px 5px rgba(0,0,0,0.2);
 }
 
 
@@ -162,7 +172,6 @@ button{
     padding: 5px 10px;
     border-radius: 6px;
 }
-
 
 
 @media (max-width: 800px){
