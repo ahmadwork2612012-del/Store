@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Products</title>
+</head>
+
+<body>
+
+<div id="top-bar">
+
+    <div id="filters">
+        <button>الكل</button>
+        <button>ملابس</button>
+        <button>الكترونيات</button>
+        <button>كتب</button>
+        <button>طعام</button>
+        <button>العاب</button>
+        <button>أحذية</button>
+        <button>إكسسوارات</button>
+        <button>أثاث</button>
+    </div>
+
+    <button id="back-btn">رجوع</button>
+
+</div>
+
+
+<div class="container">
+
+    <div id="products"></div>
+
+    <div id="product-details">
+
+        <div class="card">
+
+            <button onclick="goBack()" class="close-btn">✖</button>
+
+            <img id="detail-image">
+
+            <h2 id="detail-name"></h2>
+
+            <p id="detail-price"></p>
+
+            <p id="detail-type"></p>
+
+            <p id="detail-description"></p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,40 +1,41 @@
-// DOM
-const form = document.getElementById('form');
+const form = document.getElementById("form");
 
-const Uname = document.getElementById('name');
-const price = document.getElementById('price');
-const Select = document.getElementById('select');
-const image = document.getElementById('image');
-const description = document.getElementById('description');
+const Uname = document.getElementById("name");
+const price = document.getElementById("price");
+const color = document.getElementById("color");
+const quantity = document.getElementById("quantity");
+const Select = document.getElementById("select");
+const image = document.getElementById("image");
+const description = document.getElementById("description");
 
-const submit = document.getElementById('btn');
+const submit = document.getElementById("btn");
 
-const error = document.getElementById('error-message');
-const complete = document.getElementById('complete-message');
-const deleteMsg = document.getElementById('delete-message');
-const editMsg = document.getElementById('edit-message');
-const emptyMsg = document.getElementById('empty-message');
+const error = document.getElementById("error-message");
+const complete = document.getElementById("complete-message");
+const deleteMsg = document.getElementById("delete-message");
+const editMsg = document.getElementById("edit-message");
+const emptyMsg = document.getElementById("empty-message");
 
-const products = document.getElementById('products');
+const productsBox = document.getElementById("products");
 
 let editIndex = -1;
 
 
-// API 
+/* API */
 async function getAPIProducts() {
     try {
         const res = await fetch("https://fakestoreapi.com/products");
-        const data = await res.json();
-        return data;
-    } catch (error) {
-        console.log(error);
+        return await res.json();
+    } catch {
         return [];
     }
 }
 
 
-// الرسائل 
+/* Messages */
 function showMessage(msg) {
+    if (!msg) return;
+
     msg.style.display = "block";
 
     setTimeout(() => {
@@ -43,131 +44,140 @@ function showMessage(msg) {
 }
 
 
-// submit 
-form.addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    error.style.display = "none";
-    complete.style.display = "none";
-    deleteMsg.style.display = "none";
-    editMsg.style.display = "none";
-    emptyMsg.style.display = "none";
-
-    // validation
-    if (
-        Uname.value.trim() === "" ||
-        price.value.trim() === "" ||
-        Select.value.trim() === "" ||
-        image.value.trim() === "" ||
-        description.value.trim() === ""
-    ) {
-        showMessage(emptyMsg);
-        return;
-    }
-
-    if (Uname.value.trim().length < 3) {
-        showMessage(error);
-        return;
-    }
-
-    if (Number(price.value) <= 0) {
-        showMessage(error);
-        return;
-    }
-
-    let product = {
-        name: Uname.value.trim(),
-        price: price.value.trim(),
-        select: Select.value,
-        image: image.value.trim(),
-        description: description.value.trim()
-    };
-
-    let productsList = JSON.parse(localStorage.getItem("products")) || [];
-
-    if (editIndex === -1) {
-        productsList.push(product);
-        showMessage(complete);
-    } else {
-        productsList[editIndex] = product;
-        showMessage(editMsg);
-
-        editIndex = -1;
-        submit.textContent = "اضافة المنتج";
-    }
-
-    localStorage.setItem("products", JSON.stringify(productsList));
-
-    displayAllProducts();
-
-    form.reset();
-});
+/* زر عرض المنتجات */
+function toggleView() {
+    window.location.href = "products.html";
+}
 
 
-// localStorage 
-function displayLocalProducts() {
-    let productsList = JSON.parse(localStorage.getItem("products")) || [];
+/* Submit Form */
+if (form) {
+    form.addEventListener("submit", function (e) {
 
-    productsList.forEach((product, index) => {
-        const productE = document.createElement("div");
-        productE.className = "productE";
+        e.preventDefault();
 
-        productE.innerHTML = `
-            <h3 class="h3">${product.name}</h3>
-            <p class="p">السعر: ${product.price}</p>
-            <p class="p">التصنيف: ${product.select}</p>
-            <img class="productE-img" src="${product.image}">
-            <p class="p">${product.description}</p>
+        if (
+            !Uname.value.trim() ||
+            !price.value.trim() ||
+            !image.value.trim() ||
+            !description.value.trim()
+        ) {
+            showMessage(emptyMsg);
+            return;
+        }
 
-            <button class="delete" onclick="deleteProduct(${index})">حذف</button>
-            <button class="edit" onclick="editProduct(${index})">تعديل</button>
-        `;
+        let product = {
+            name: Uname.value.trim(),
+            price: price.value.trim(),
+            color: color.value.trim(),
+            quantity: quantity.value.trim(),
+            select: Select.value,
+            image: image.value.trim(),
+            description: description.value.trim()
+        };
 
-        products.appendChild(productE);
+        let list = JSON.parse(localStorage.getItem("products")) || [];
+
+        if (editIndex === -1) {
+            list.push(product);
+            showMessage(complete);
+        } else {
+            list[editIndex] = product;
+            showMessage(editMsg);
+            editIndex = -1;
+            submit.textContent = "اضافة المنتج";
+        }
+
+        localStorage.setItem("products", JSON.stringify(list));
+
+        form.reset();
     });
 }
 
 
-// API 
-async function displayAPIProducts() {
-    let apiProducts = await getAPIProducts();
-
-    apiProducts.forEach(product => {
-        const productE = document.createElement("div");
-        productE.className = "productE";
-
-        productE.innerHTML = `
-            <span style="font-size:12px;background:#222;color:#fff;padding:3px 6px;border-radius:5px;">
-                API
-            </span>
-
-            <h3 class="h3">${product.title}</h3>
-            <p class="p">السعر: ${product.price}</p>
-            <img class="productE-img" src="${product.image}">
-            <p class="p">${product.description}</p>
-        `;
-
-        products.appendChild(productE);
-    });
-}
-
-
-// عرض الكل 
+/* عرض المنتجات */
 async function displayAllProducts() {
-    products.innerHTML = "";
 
-    await displayAPIProducts();
-    displayLocalProducts();
+    if (!productsBox) return;
+
+    productsBox.innerHTML = "Loading...";
+
+    let api = await getAPIProducts();
+    let local = JSON.parse(localStorage.getItem("products")) || [];
+
+    productsBox.innerHTML = "";
+
+
+    /* API */
+    api.forEach(p => {
+
+        let div = document.createElement("div");
+
+        div.className = "productE";
+        div.dataset.category = p.category;
+
+        div.innerHTML = `
+            <div class="product-info">
+                <h3 class="h3">${p.title}</h3>
+                <p class="p">السعر: ${p.price}</p>
+            </div>
+
+            <img class="productE-img" src="${p.image}">
+        `;
+
+        div.onclick = () => {
+            showDetails({
+                name: p.title,
+                price: p.price,
+                color: "غير متوفر",
+                quantity: "غير متوفر",
+                select: p.category,
+                image: p.image,
+                description: p.description
+            });
+        };
+
+        productsBox.appendChild(div);
+    });
+
+
+    /* Local */
+    local.forEach((p, i) => {
+
+        let div = document.createElement("div");
+
+        div.className = "productE";
+        div.dataset.category = p.select;
+
+        div.innerHTML = `
+            <div class="product-info">
+                <h3 class="h3">${p.name}</h3>
+                <p class="p">السعر: ${p.price}</p>
+            </div>
+
+            <img class="productE-img" src="${p.image}">
+
+            <div style="display:flex; flex-direction:column; gap:6px;">
+                <button class="edit" onclick="editProduct(${i}); event.stopPropagation();">تعديل</button>
+                <button class="delete" onclick="deleteProduct(${i}); event.stopPropagation();">حذف</button>
+            </div>
+        `;
+
+        div.onclick = () => showDetails(p);
+
+        productsBox.appendChild(div);
+    });
 }
 
 
-// حذف 
-function deleteProduct(index) {
-    let productsList = JSON.parse(localStorage.getItem("products")) || [];
+/* Delete */
+function deleteProduct(i) {
 
-    productsList.splice(index, 1);
+    let list = JSON.parse(localStorage.getItem("products")) || [];
 
-    localStorage.setItem("products", JSON.stringify(productsList));
+    list.splice(i, 1);
+
+    localStorage.setItem("products", JSON.stringify(list));
 
     showMessage(deleteMsg);
 
@@ -175,38 +185,128 @@ function deleteProduct(index) {
 }
 
 
-// تعديل 
-function editProduct(index) {
-    let productsList = JSON.parse(localStorage.getItem("products")) || [];
+/* Edit */
+function editProduct(i) {
 
-    const product = productsList[index];
+    let list = JSON.parse(localStorage.getItem("products")) || [];
 
-    Uname.value = product.name;
-    price.value = product.price;
-    Select.value = product.select;
-    image.value = product.image;
-    description.value = product.description;
+    localStorage.setItem("editProduct", JSON.stringify({
+        index: i,
+        product: list[i]
+    }));
 
-    editIndex = index;
-
-    submit.textContent = "تحديث المنتج";
-
-    showMessage(editMsg);
-}
-
-function toggleView() {
-    const left = document.getElementById("left");
-    const right = document.getElementById("right");
-
-    if (left.style.display === "none") {
-        left.style.display = "block";
-        right.style.display = "none";
-    } else {
-        left.style.display = "none";
-        right.style.display = "block";
-    }
+    window.location.href = "index.html";
 }
 
 
-// أول تشغيل 
-window.onload = displayAllProducts;
+/* تحميل بيانات التعديل */
+if (form) {
+    window.addEventListener("load", function () {
+
+        let data = JSON.parse(localStorage.getItem("editProduct"));
+
+        if (!data) return;
+
+        Uname.value = data.product.name;
+        price.value = data.product.price;
+        color.value = data.product.color;
+        quantity.value = data.product.quantity;
+        Select.value = data.product.select;
+        image.value = data.product.image;
+        description.value = data.product.description;
+
+        editIndex = data.index;
+
+        submit.textContent = "تحديث المنتج";
+
+        localStorage.removeItem("editProduct");
+    });
+}
+
+
+/* التفاصيل */
+function showDetails(p) {
+
+    const details = document.getElementById("product-details");
+
+    if (!details || !productsBox) return;
+
+    productsBox.style.display = "none";
+    details.style.display = "flex";
+
+    document.getElementById("detail-image").src = p.image;
+    document.getElementById("detail-name").innerText = "الاسم: " + p.name;
+    document.getElementById("detail-price").innerText = "السعر: " + p.price;
+    document.getElementById("detail-type").innerText = "النوع: " + p.select;
+    document.getElementById("detail-description").innerText =
+        "اللون: " + (p.color || "غير محدد") +
+        " | الكمية: " + (p.quantity || "غير محدد") +
+        "\nالوصف: " + p.description;
+}
+
+
+/* رجوع */
+const backBtn = document.getElementById("back-btn");
+
+if (backBtn) {
+    backBtn.addEventListener("click", goBack);
+}
+
+function goBack() {
+    const details = document.getElementById("product-details");
+    const products = document.getElementById("products");
+
+    if (!details || !products) return;
+
+    details.style.display = "none";
+    products.style.display = "flex";
+}
+
+/* فلترة */
+document.addEventListener("click", function (e) {
+
+    if (e.target.parentElement?.id !== "filters") return;
+
+    const type = e.target.innerText.trim();
+
+    const map = {
+        "ملابس": "clothes",
+        "الكترونيات": "electronics",
+        "كتب": "books",
+        "طعام": "food",
+        "العاب": "games",
+        "أحذية": "shoes",
+        "إكسسوارات": "accessories",
+        "أثاث": "furniture"
+    };
+
+    document.querySelectorAll(".productE").forEach(card => {
+
+        const category = card.dataset.category;
+
+        if (type === "الكل") {
+            card.style.display = "flex";
+            return;
+        }
+
+        if (
+            category === map[type] ||
+            category === type ||
+            (category === "men's clothing" && type === "ملابس") ||
+            (category === "women's clothing" && type === "ملابس") ||
+            (category === "jewelery" && type === "إكسسوارات")
+        ) {
+            card.style.display = "flex";
+        } else {
+            card.style.display = "none";
+        }
+
+    });
+
+});
+
+
+/* Init */
+window.addEventListener("load", function () {
+    displayAllProducts();
+});

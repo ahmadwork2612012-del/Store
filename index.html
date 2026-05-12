@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>final web</title>
+    <title>Product Form</title>
 </head>
 
 <body>
 
     <div class="container">
 
-        <div id="left">
+        <div id="form-page">
+
             <h1>Product Form</h1>
 
             <div id="error-message" style="display: none;">
@@ -37,8 +37,13 @@
 
             <form id="form">
                 <div class="form-group">
+
                     <input id="name" type="text" placeholder="ضع اسم المنتج">
                     <input id="price" type="number" placeholder="ضع سعر المنتج">
+
+                    <input id="color" type="text" placeholder="لون المنتج (اختياري)">
+
+                    <input id="quantity" type="number" placeholder="الكمية">
 
                     <select id="select">
                         <option value="main">اختر نوع المنتج</option>
@@ -47,22 +52,21 @@
                         <option value="books">كتب</option>
                         <option value="food">طعام</option>
                         <option value="games">العاب</option>
+                        <option value="shoes">أحذية</option>
+                        <option value="accessories">إكسسوارات</option>
+                        <option value="furniture">أثاث</option>
                     </select>
 
                     <input id="image" type="url" placeholder="ضع رابط صورة المنتج">
                     <input id="description" type="text" placeholder="ضع وصف المنتج">
 
                     <button type="submit" id="btn">اضافة المنتج</button>
-                    <button onclick="toggleView()">عرض المنتجات</button>
+
+                    <button type="button" onclick="toggleView()">عرض المنتجات</button>
+
                 </div>
             </form>
-        </div>
 
-        <div id="right">
-            <h1>Products</h1>
-            <div id="products">
-    </div>
-            </div>
         </div>
 
     </div>

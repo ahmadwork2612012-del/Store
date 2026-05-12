@@ -5,39 +5,80 @@
 
 body{
     margin: 0;
-    padding: 20px;
-    background: linear-gradient(to right, #8b8989, #3d3d3c);
+    padding: 0;
     min-height: 100vh;
+    background: linear-gradient(to right, #8b8989, #3d3d3c);
+    padding-top: 80px; /* عشان الناف بار */
 }
 
+/* NAVBAR */
+#top-bar{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 12px 20px;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* FILTERS */
+#filters{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+#filters button{
+    padding: 6px 10px;
+    border: none;
+    border-radius: 8px;
+    background: #4CAF50;
+    color: white;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+/* BACK BUTTON */
+#back-btn{
+    background:#e53935;
+    border:none;
+    padding:8px 14px;
+    border-radius:8px;
+    color:white;
+    cursor:pointer;
+}
+
+/* CONTAINER */
 .container{
     width: 95%;
     max-width: 1200px;
     margin: auto;
     display: flex;
+    justify-content: center;
+    align-items: flex-start;
     gap: 20px;
+    padding-top: 20px;
 }
 
-
-#left, #right{
+/* FORM CARD */
+#left{
+    width: 100%;
+    max-width: 700px;
+    margin: auto;
     background: linear-gradient(to right, #f5f0f0, #b6b3b3);
     padding: 20px;
     border-radius: 14px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.18);
 }
 
-
-#left{
-    flex: 1;
-}
-
-#right{
-    flex: 2;
-    max-height: 90vh;
-    overflow-y: auto;
-}
-
+/* FORM TITLE */
 h1{
     text-align: center;
     color: #222;
@@ -46,7 +87,7 @@ h1{
     padding-bottom: 10px;
 }
 
-
+/* FORM */
 .form-group{
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -66,12 +107,12 @@ input:focus, select:focus{
     border-color: #4CAF50;
 }
 
-
 #description,
 button{
     grid-column: span 2;
 }
 
+/* BUTTONS */
 button{
     padding: 12px;
     border: none;
@@ -80,19 +121,9 @@ button{
     color: white;
     font-size: 16px;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    transition: background 0.3s ease, box-shadow 0.3s ease
-}
-button:hover{
-    background: linear-gradient(to right, #45a049, #4CAF50);
-    transform: translateY(-2px);
-}
-button:active{
-    background: linear-gradient(to right, #3e8e41, #4CAF50);
-    box-shadow: 0 3px 5px rgba(0,0,0,0.2);
 }
 
-
+/* MESSAGES */
 #error-message,
 #complete-message,
 #empty-message,
@@ -111,34 +142,43 @@ button:active{
     color: #b30000;
 }
 
-#complete-message{
-    background: #d9ffd9;
-    color: #006400;
-}
-
+#complete-message,
 #delete-message,
 #edit-message{
     background: #d9ffd9;
     color: #006400;
 }
 
+/* PRODUCTS CENTER FIX */
 #products{
     display: flex;
     flex-direction: column;
+    align-items: center; /* هذا أهم تعديل */
     gap: 15px;
+    width: 100%;
 }
 
-
+/* PRODUCT CARD */
 .productE{
+    width: 60%;
     background: #fff;
-    border-radius: 14px;
+    border-radius: 12px;
     padding: 15px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+
     display: flex;
-    gap: 15px;
+    justify-content: space-between;
     align-items: center;
+
+    gap: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
+/* INFO */
+.product-info{
+    flex: 1;
+}
+
+/* IMAGE */
 .productE-img{
     width: 80px;
     height: 80px;
@@ -146,6 +186,7 @@ button:active{
     border-radius: 10px;
 }
 
+/* TEXT */
 .h3{
     margin: 0;
     font-size: 18px;
@@ -157,7 +198,7 @@ button:active{
     color: #555;
 }
 
-
+/* BUTTONS INSIDE CARD */
 .edit{
     background: #ffc107;
     border: none;
@@ -173,16 +214,62 @@ button:active{
     border-radius: 6px;
 }
 
+/* DETAILS OVERLAY */
+#product-details{
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+#top-bar{
+    z-index: 3000;
+}
+/* DETAILS CARD */
+.card{
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    width: 350px;
+    text-align: center;
+    position: relative;
+}
 
+.card img{
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* CLOSE */
+.close-btn{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: red;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+/* RESPONSIVE */
 @media (max-width: 800px){
     .container{
         flex-direction: column;
     }
+
     .productE{
         flex-direction: column;
-        align-items: flex-start;
         width: 100%;
+        align-items: flex-start;
     }
+
     .form-group{
         grid-template-columns: 1fr;
     }
